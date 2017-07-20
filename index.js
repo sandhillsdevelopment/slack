@@ -4,9 +4,7 @@ var Client  = require('slack-client'),
 module.exports = Client;
  
 // Create a new bot at https://YOURSLACK.slack.com/services/new/bot
-var BOT_TOKEN  = 'YOURSLACK-BOT-TOKEN',
-    REPO_OWNER = 'augbog',
-    REPO_NAME  = 'slack-github-issue';
+var BOT_TOKEN = 'xoxb-215585930114-ndEzrGimPtXheUbyZ5pUgrHa';
 
 var slack = new Client(BOT_TOKEN, true, true);
 
@@ -39,13 +37,15 @@ slack.on('open', function () {
 slack.on('message', function(message) {
     var channel = slack.getChannelGroupOrDMByID(message.channel);
     var user = slack.getUserByID(message.user);
+    var repo = getRepoFromChannel( channel.name );
+
     // if we find a #...
     if (message.type === 'message' && message.hasOwnProperty('text') && message.text.indexOf('#') > -1) {
       var issueNum = message.text.substr(message.text.indexOf('#')).split(' ')[0];
       if (/^#\d+$/.test(issueNum)) {
         var issueDescription,
             options = {
-              url: 'https://api.github.com/repos/' + REPO_OWNER +'/' + REPO_NAME + '/issues/' + issueNum.substr(1),
+              url: 'https://api.github.com/repos/' + repo + '/issues/' + issueNum.substr(1),
               method: 'GET',
               headers: {
                 'User-Agent':   'Super Agent/0.0.1',
@@ -64,5 +64,30 @@ slack.on('message', function(message) {
       }
     }
 });
- 
+
+function getRepoFromChannel( channel ) {
+	var $repo;
+
+	switch( channel ) {
+		case 'affwp-general':
+		case 'affwp-docs':
+		case 'affwp-support':
+			$repo = 'AffiliateWP/AffiliateWP';
+			break;
+
+		case 'edd-general':
+		case 'edd-docs':
+		case 'edd-support':
+			$repo = 'easydigitaldownloads/easy-digital-downloads';
+			break;
+
+		case 'rcp-general':
+		case 'rcp-support':
+			$repo = 'restrictcontentpro/restrict-content-pro';
+			break;
+	}
+
+	return $repo;
+}
+
 slack.login();
