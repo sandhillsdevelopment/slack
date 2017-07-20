@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var Client  = require('slack-client'),
     request = require('request');
 
