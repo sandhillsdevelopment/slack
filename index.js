@@ -43,6 +43,15 @@ slack.on('message', function(message) {
     // if we find a #...
     if (message.type === 'message' && message.hasOwnProperty('text') && message.text.indexOf('#') > -1) {
       var issueNum = message.text.substr(message.text.indexOf('#')).split(' ')[0];
+      var match    = issueNum.match( /[a-z]+/ );
+
+      if ( 'undefined' !== match ) {
+		  repo = getRepoFromAbbr( match, channel.name );
+
+		  // Rewrite the issueNum minus the abbreviation.
+		  issueNum = '#' + issueNum.match(/\d+$/);
+      }
+
       if (/^#\d+$/.test(issueNum)) {
         var issueDescription,
             options = {
@@ -90,5 +99,99 @@ function getRepoFromChannel( channel ) {
 
 	return $repo;
 }
+
+/**
+ * Retrieves a repo by abbreviation and channel.
+ *
+ * @param {string} abbr    Repo abbreviation.
+ * @param {string} channel Channel name
+ * @returns {string} Repo.
+ */
+function getRepoFromAbbr( abbr, channel ) {
+
+	var $repo;
+
+	switch( channel ) {
+		case 'affwp-general':
+		case 'affwp-docs':
+		case 'affwp-support':
+			if ( 'undefined' !== AffWPRepoMap[abbr] ) {
+				$repo = "AffiliateWP/" + AffWPRepoMap[abbr];
+			}
+			break;
+
+		case 'edd-general':
+		case 'edd-docs':
+		case 'edd-support':
+			if ( 'undefined' !== EDDRepoMap[abbr] ) {
+				$repo = "easydigitaldownloads/" + EDDRepoMap[abbr];
+			}
+			break;
+
+		case 'rcp-general':
+		case 'rcp-support':
+			if ( 'undefined' !== RCPRepoMap[abbr] ) {
+				$repo = "restrictcontentpro/" + RCPRepoMap[abbr];
+			}
+			break;
+	}
+
+	return $repo;
+}
+
+var AffWPRepoMap = {
+	allow:  'affiliatewp-allow-own-referrals',
+	ap:     'affiliatewp-allowed-products',
+	apr:    'affiliatewp-affiliate-product-rates',
+	arl:    'affiliatewp-add-referral-links',
+	cas:    'affiliatewp-custom-affiliate-slugs',
+	cligen: 'affiliatewp-wp-cli-generator',
+	cr:     'affiliatewp-checkout-referrals',
+	dbs:    'affiliatewp-affiliate-dashboard-sharing',
+	dlt:    'affiliatewp-direct-link-tracking',
+	docs:   'affwp-docs',
+	erl:    'external-referral-links',
+	flag:   'affiliatewp-flag-affiliates',
+	force:  'affwp-force-pending-referrals',
+	gf:     'affiliatewp-affiliate-forms-gravity-forms',
+	info:   'affiliatewp-affiliate-info',
+	labs:   'affiliatewp-labs',
+	lb:     'affiliatewp-leaderboard',
+	lc:     'affiliate-wp-lifetime-commissions',
+	lp:     'affiliatewp-affiliate-landing-pages',
+	nf:     'affiliatewp-affiliate-forms-ninja-forms',
+	od:     'affiliatewp-order-details-for-affiliates',
+	pp:     'affiliate-wp-paypal-payouts',
+	push:   'affiliate-wp-pushover',
+	rar:    'affiliatewp-restrict-affiliate-registration',
+	rest:   'affiliatewp-rest-api-extended',
+	rr:     'affiliate-wp-recurring-referrals',
+	rta:    'affiliatewp-restrict-to-affiliates',
+	sac:    'affiliatewp-show-affiliate-coupons',
+	sc:     'affiliatewp-store-credit',
+	shor:   'affiliatewp-affiliate-area-shortcodes',
+	signup: 'affiliatewp-signup-referrals',
+	stripe: 'affiliate-wp-stripe-payouts',
+	sub:    'affiliatewp-sign-up-bonus',
+	survey: 'affiliatewp-survey-discounts',
+	tabs:   'affiliatewp-affiliate-area-tabs',
+	tiered: 'affiliatewp-tiered-affiliate-rates',
+	usage:  'affwp-usage-tracking',
+	wcra:   'affiliatewp-woocommerce-redirect-affiliates',
+	zap:    'affiliatewp-zapier'
+};
+
+var EDDRepoMap = {
+
+};
+
+var RCPRepoMap = {
+
+};
+
+var SHRepoMap = {
+	claws: 'claws',
+	cs:    'coding-standards'
+};
 
 slack.login();
