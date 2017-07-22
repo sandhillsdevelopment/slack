@@ -55,6 +55,9 @@ slack.on('message', function(message) {
 		  issueNum = '#' + issueNum.match(/\d+$/);
       }
 
+      console.log(repo);
+      console.log(issueNum);
+
       if (/^#\d+$/.test(issueNum)) {
         var issueDescription,
             options = {
@@ -66,13 +69,18 @@ slack.on('message', function(message) {
               }
             };
 
+        console.log( 'Repo URL:' );
+        console.log( options.url );
+
         //Github API requires User Agent
         request(options, function (error, response, body) {
           var json = JSON.parse(body);
           if (!error && response.statusCode == 200) {
             issueDescription = "[#" + json.number + "] " + json.title + "\n " + json.html_url;
             channel.send(issueDescription)
-          }
+          } else {
+            console.log( error );
+		  }
         });
       }
     }
