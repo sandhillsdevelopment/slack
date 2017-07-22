@@ -48,7 +48,7 @@ slack.on('message', function(message) {
       console.log('Detected');
       console.log(issueNum);
       console.log(abbr);
-      if ( 'undefined' !== abbr ) {
+      if ( null !== abbr ) {
 		  repo = getRepoFromAbbr( abbr, channel.name );
 
 		  // Rewrite the issueNum minus the abbreviation.
