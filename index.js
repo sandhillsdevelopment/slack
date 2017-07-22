@@ -43,10 +43,10 @@ slack.on('message', function(message) {
     // if we find a #...
     if (message.type === 'message' && message.hasOwnProperty('text') && message.text.indexOf('#') > -1) {
       var issueNum = message.text.substr(message.text.indexOf('#')).split(' ')[0];
-      var match    = issueNum.match( /[a-z]+/ );
+      var abbr     = issueNum.match( /[a-z]+/ );
 
-      if ( 'undefined' !== match ) {
-		  repo = getRepoFromAbbr( match, channel.name );
+      if ( 'undefined' !== abbr ) {
+		  repo = getRepoFromAbbr( abbr, channel.name );
 
 		  // Rewrite the issueNum minus the abbreviation.
 		  issueNum = '#' + issueNum.match(/\d+$/);
