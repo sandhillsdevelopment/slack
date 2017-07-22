@@ -49,7 +49,7 @@ slack.on('message', function(message) {
       console.log(issueNum);
       console.log(abbr);
       if ( null !== abbr ) {
-		  repo = getRepoFromAbbr( abbr, channel.name );
+		  repo = getRepoFromAbbr( abbr[0], channel.name );
 
 		  // Rewrite the issueNum minus the abbreviation.
 		  issueNum = '#' + issueNum.match(/\d+$/);
