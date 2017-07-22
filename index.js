@@ -45,6 +45,9 @@ slack.on('message', function(message) {
       var issueNum = message.text.substr(message.text.indexOf('#')).split(' ')[0];
       var abbr     = issueNum.match( /[a-z]+/ );
 
+      console.log('Detected');
+      console.log(issueNum);
+      console.log(abbr);
       if ( 'undefined' !== abbr ) {
 		  repo = getRepoFromAbbr( abbr, channel.name );
 
