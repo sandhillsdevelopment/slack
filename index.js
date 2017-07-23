@@ -78,6 +78,7 @@ slack.on('message', function(message) {
         console.log( 'Repo URL:' );
         console.log( options.url );
 
+        console.log( options );
         //Github API requires User Agent
         request(options, function (error, response, body) {
           var json = JSON.parse(body);
