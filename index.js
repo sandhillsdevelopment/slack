@@ -84,6 +84,7 @@ slack.on('message', function(message) {
           if (!error && response.statusCode == 200) {
             issueDescription = "[#" + json.number + "] " + json.title + "\n " + json.html_url;
 
+            console.log( 'Response' );
             console.log( issueDescription );
             channel.send(issueDescription)
           } else {
