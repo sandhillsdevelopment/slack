@@ -49,7 +49,6 @@ slack.on('message', function(message) {
       var abbr     = issueNum.match( /[a-z]+/ );
 
       console.log('Detected');
-      console.log(issueNum);
       console.log(abbr);
 
       if ( null !== abbr ) {
