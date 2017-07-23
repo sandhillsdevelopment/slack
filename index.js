@@ -69,15 +69,13 @@ slack.on('message', function(message) {
               method: 'GET',
               headers: {
                 'User-Agent':   'Super Agent/0.0.1',
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': "Basic " + $.base64.encode( "DrewAPicture:" + AUTH_TOKEN.toString() );
+                'Content-Type': 'application/x-www-form-urlencoded'
               }
             };
 
         console.log( 'Repo URL:' );
         console.log( options.url );
 
-        console.log( options );
         //Github API requires User Agent
         request(options, function (error, response, body) {
           var json = JSON.parse(body);
