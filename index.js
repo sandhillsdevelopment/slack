@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 var Client  = require('slack-client'),
     request = require('request');
+    fs      = require('fs');
 
 module.exports = Client;
  
 // Create a new bot at https://YOURSLACK.slack.com/services/new/bot
-var BOT_TOKEN = 'xoxb-215585930114-ndEzrGimPtXheUbyZ5pUgrHa';
+var BOT_TOKEN = 'xoxb-215585930114-ndEzrGimPtXheUbyZ5pUgrHa',
+    AUTH_TOKEN = fs.readFileSync( 'secrets' );
 
 var slack = new Client(BOT_TOKEN, true, true);
 
@@ -90,7 +92,7 @@ slack.on('message', function(message) {
 			// Send the link anyway.
 			channel.send( issuesURL );
 		  }
-        });
+        }).auth( 'DrewAPicture', AUTH_TOKEN.toString() );
       }
     }
 });
