@@ -61,8 +61,8 @@ slack.on('message', function(message) {
       console.log(issueNum);
 
       if (/^#\d+$/.test(issueNum)) {
-        issuesURL = 'https://api.github.com/repos/' + repo + '/issues/' + issueNum.substr(1);
         var issueDescription,
+            issuesURL = 'https://api.github.com/repos/' + repo + '/issues/' + issueNum.substr(1),
             options = {
               url: issuesURL,
               method: 'GET',
@@ -80,6 +80,8 @@ slack.on('message', function(message) {
           var json = JSON.parse(body);
           if (!error && response.statusCode == 200) {
             issueDescription = "[#" + json.number + "] " + json.title + "\n " + json.html_url;
+
+            console.log( issueDescription );
             channel.send(issueDescription)
           } else {
 			console.log( 'Request error' );
