@@ -94,6 +94,7 @@ slack.on('message', function(message) {
 			// Send the link anyway.
 			channel.send( issuesURL );
 		  }
+		  console.log( response );
         });
       }
     }
