@@ -40,8 +40,7 @@ slack.on('open', function () {
 slack.on('message', function(message) {
     var	channel = slack.getChannelGroupOrDMByID(message.channel),
 		user = slack.getUserByID(message.user),
-		repo = getRepoFromChannel( channel.name ),
-		issuesURL;
+		repo = getRepoFromChannel( channel.name );
 
     // if we find a #...
     if (message.type === 'message' && message.hasOwnProperty('text') && message.text.indexOf('#') > -1) {
@@ -63,9 +62,8 @@ slack.on('message', function(message) {
 
       if (/^#\d+$/.test(issueNum)) {
         var issueDescription,
-            issuesURL = 'https://api.github.com/repos/' + repo + '/issues/' + issueNum.substr(1),
             options = {
-              url: issuesURL,
+              url: 'https://api.github.com/repos/' + repo + '/issues/' + issueNum.substr(1),
               method: 'GET',
               headers: {
                 'User-Agent':   'Super Agent/0.0.1',
@@ -82,17 +80,10 @@ slack.on('message', function(message) {
           if (!error && response.statusCode == 200) {
             issueDescription = "[#" + json.number + "] " + json.title + "\n " + json.html_url;
 
-            console.log( 'Response' );
-            console.log( issueDescription );
             channel.send(issueDescription)
           } else {
-			console.log( 'Request error' );
-			console.log( issuesURL );
-
-			// Send the link anyway.
-			channel.send( issuesURL );
+			console.log( response );
 		  }
-		  console.log( response );
         });
       }
     }
