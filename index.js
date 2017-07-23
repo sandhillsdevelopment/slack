@@ -70,7 +70,8 @@ slack.on('message', function(message) {
               method: 'GET',
               headers: {
                 'User-Agent':   'Super Agent/0.0.1',
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': "Basic " + $.base64.encode( "DrewAPicture:" + AUTH_TOKEN.toString() );
               }
             };
 
@@ -92,7 +93,7 @@ slack.on('message', function(message) {
 			// Send the link anyway.
 			channel.send( issuesURL );
 		  }
-        }).auth( 'DrewAPicture', AUTH_TOKEN.toString() );
+        });
       }
     }
 });
