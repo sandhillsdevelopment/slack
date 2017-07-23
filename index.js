@@ -83,7 +83,7 @@ slack.on('message', function(message) {
             channel.send(issueDescription)
           } else {
 			console.log( 'Request error' );
-			console.log( error );
+			console.log( issuesURL );
 
 			// Send the link anyway.
 			channel.send( issuesURL );
