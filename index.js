@@ -84,6 +84,8 @@ slack.on('message', function(message) {
 				} else {
 					console.log( error );
 				}
+
+				console.log( response.headers );
 			});
 		}
 	}
