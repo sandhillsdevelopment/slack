@@ -69,7 +69,7 @@ slack.on('message', function(message) {
 					headers: {
 						'User-Agent':   'Super Agent/0.0.1',
 						'Content-Type': 'application/x-www-form-urlencoded',
-						'Authorization': 'Basic ' + new Buffer( 'DrewAPicture:' + token).toString('base64')
+						'Authorization': 'token ' + token
 					}
 				};
 
