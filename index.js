@@ -60,7 +60,6 @@ slack.on('message', function(message) {
 		console.log(repo);
 		console.log(issueNum);
 
-		console.log( AUTH_TOKEN.toString() );
 		if (/^#\d+$/.test(issueNum)) {
 			var issueDescription,
 				options = {
@@ -69,7 +68,7 @@ slack.on('message', function(message) {
 					headers: {
 						'User-Agent':   'Super Agent/0.0.1',
 						'Content-Type': 'application/x-www-form-urlencoded',
-						'Authorization': 'Basic ' + new Buffer( 'DrewAPicture:' + AUTH_TOKEN.toString()).toString('base64')
+						'Authorization': 'Basic ' + btoa( 'DrewAPicture:' + AUTH_TOKEN.toString() )
 					}
 				};
 
@@ -85,8 +84,6 @@ slack.on('message', function(message) {
 				} else {
 					console.log( error );
 				}
-
-				console.log( error );
 			});
 		}
 	}
