@@ -60,6 +60,7 @@ slack.on('message', function(message) {
 		console.log(repo);
 		console.log(issueNum);
 
+		console.log( AUTH_TOKEN.toString() );
 		if (/^#\d+$/.test(issueNum)) {
 			var issueDescription,
 				options = {
@@ -85,8 +86,7 @@ slack.on('message', function(message) {
 					console.log( error );
 				}
 
-				console.log( response );
-				console.log( body );
+				console.log( error );
 			});
 		}
 	}
