@@ -62,13 +62,14 @@ slack.on('message', function(message) {
 
 		if (/^#\d+$/.test(issueNum)) {
 			var issueDescription,
+				token = AUTH_TOKEN.toString(),
 				options = {
 					url: 'https://api.github.com/repos/' + repo + '/issues/' + issueNum.substr(1),
 					method: 'GET',
 					headers: {
 						'User-Agent':   'Super Agent/0.0.1',
 						'Content-Type': 'application/x-www-form-urlencoded',
-						'Authorization': 'Basic ' + btoa( 'DrewAPicture:' + AUTH_TOKEN.toString() )
+						'Authorization': 'Basic ' + new Buffer( 'DrewAPicture:' + token).toString('base64')
 					}
 				};
 
