@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 var Client  = require('slack-client'),
-	request = require('request');
+	request = require('request'),
+	fs      = require('fs');
 
 module.exports = Client;
 
 // Create a new bot at https://YOURSLACK.slack.com/services/new/bot
 var BOT_TOKEN = 'xoxb-215585930114-ndEzrGimPtXheUbyZ5pUgrHa';
+var AUTH_TOKEN = fs.readFileSync( './secrets' );
 
 var slack = new Client(BOT_TOKEN, true, true);
 
@@ -65,7 +67,8 @@ slack.on('message', function(message) {
 					method: 'GET',
 					headers: {
 						'User-Agent':   'Super Agent/0.0.1',
-						'Content-Type': 'application/x-www-form-urlencoded'
+						'Content-Type': 'application/x-www-form-urlencoded',
+						'Authorization': 'Basic ' + new Buffer( 'DrewAPicture:' + AUTH_TOKEN.toString()).toString('base64')
 					}
 				};
 
