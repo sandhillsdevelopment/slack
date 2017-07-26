@@ -94,28 +94,27 @@ slack.on('message', function(message) {
 
 		} else if ( message.text.match( /^\<@U6BH7TC3C\>\slist$/ ) ) {
 
-			console.log( "```" + AffWPRepoMap + "```" );
 			switch( channel.name ) {
 				case 'affwp-general':
 				case 'affwp-docs':
 				case 'affwp-support':
-					channel.send( "```" + AffWPRepoMap + "```" );
+					channel.send( "```" + JSON.stringify( AffWPRepoMap ) + "```" );
 					break;
 
 				case 'edd-general':
 				case 'edd-docs':
 				case 'edd-support':
-					channel.send( "```" + EDDRepoMap + "```" );
+					channel.send( "```" + JSON.stringify( EDDRepoMap ) + "```" );
 					break;
 
 				case 'rcp-general':
 				case 'rcp-support':
-					channel.send( "```" + RCPRepoMap + "```" );
+					channel.send( "```" + JSON.stringify( RCPRepoMap ) + "```" );
 					break;
 			}
+
 		}
 
-		console.log( message.text );
 	}
 });
 
