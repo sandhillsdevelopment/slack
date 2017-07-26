@@ -6,10 +6,10 @@ var Client  = require('slack-client'),
 module.exports = Client;
 
 // Create a new bot at https://YOURSLACK.slack.com/services/new/bot
-var BOT_TOKEN = 'xoxb-215585930114-ndEzrGimPtXheUbyZ5pUgrHa';
-var AUTH_TOKEN = fs.readFileSync( './secrets' );
+var BOT_TOKEN = fs.readFileSync( './bot_token' );
+var AUTH_TOKEN = fs.readFileSync( './auth_token' );
 
-var slack = new Client(BOT_TOKEN, true, true);
+var slack = new Client(BOT_TOKEN.toString(), true, true);
 
 slack.on('open', function () {
 	var channels = Object.keys(slack.channels)
