@@ -82,7 +82,7 @@ slack.on('message', function(message) {
 				request(options, function (error, response, body) {
 					var json = JSON.parse(body);
 					if (!error && response.statusCode == 200) {
-						issueDescription = "[#" + json.number + "] " + json.title + "\n " + json.html_url;
+						issueDescription = "[*" + repo + "* - #" + json.number + "] " + json.title + "\n " + json.html_url;
 						channel.send(issueDescription)
 					} else {
 						console.log( error );
