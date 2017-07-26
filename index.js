@@ -91,26 +91,7 @@ slack.on('message', function(message) {
 		// If we get '@github list':
 		} else if ( message.text.match( /^\<@U6BH7TC3C\>\slist$/ ) ) {
 
-			var mapObject;
-
-			switch( channel.name ) {
-				case 'affwp-general':
-				case 'affwp-docs':
-				case 'affwp-support':
-					mapObject = repoMaps.AffWP;
-					break;
-
-				case 'edd-general':
-				case 'edd-docs':
-				case 'edd-support':
-					mapObject = repoMaps.EDD;
-					break;
-
-				case 'rcp-general':
-				case 'rcp-support':
-					mapObject = repoMaps.RCP;
-					break;
-			}
+			var mapObject = repoMaps.getMapObject( channel.name );
 
 			if ( null !== mapObject ) {
 
