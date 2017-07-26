@@ -114,6 +114,7 @@ slack.on('message', function(message) {
 			}
 		}
 
+		console.log( message.text );
 	}
 });
 
