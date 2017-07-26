@@ -115,20 +115,21 @@ slack.on('message', function(message) {
 					break;
 			}
 
-			if ( null !== mapObject ) {
-				for ( var prop in mapObject ) {
-					if ( 'undefined' !== prop ) {
-						toPrint += prop + " : " + mapObject[prop] + "\n";
-					}
-				}
-
-				channel.send( "*Repo Abbreviation Map:*\n" + "```" + toPrint + "```" );
-
-			} else {
-
-				console.log( "Nothing to print." );
-
-			}
+			channel.send( "```" + JSON.stringify( mapObject, null, 4 ) + "```" );
+			// if ( null !== mapObject ) {
+			// 	for ( var prop in mapObject ) {
+			// 		if ( 'undefined' !== prop ) {
+			// 			toPrint += prop + " : " + mapObject[prop] + "\n";
+			// 		}
+			// 	}
+			//
+			// 	channel.send( "*Repo Abbreviation Map:*\n" + "```" + toPrint + "```" );
+			//
+			// } else {
+			//
+			// 	console.log( "Nothing to print." );
+			//
+			// }
 
 
 		}
