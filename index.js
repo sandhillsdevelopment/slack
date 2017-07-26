@@ -382,7 +382,33 @@ var EDDRepoMap = {
 };
 
 var RCPRepoMap = {
-
+	bt:     'rcp-braintree',
+	cm:     'rcp-campaign-monitor',
+	cr:     'rcp-custom-redirects',
+	csv:    'rcp-csv-user-import',
+	dmb:    'RCP-Download-Monitor-Bridge',
+	drip:   'rcp-drip-content',
+	eddmd:  'rcp-edd-member-downloads',
+	eddfes: 'rcp-edd-fes-submission-limits',
+	fatwpl: 'rcp-fatwpl',
+	forms:  'rcp-forms',
+	gifts:  'RCP-Gifts-Through-EDD',
+	group:  'rcp-group-accounts',
+	hed:    'rcp-hardset-expiration-dates',
+	help:   'rcp-help-scout',
+	hp:     'RCP-Honeypot',
+	job:    'rcp-wp-job-manager',
+	lqa:    'rcp-limited-quantity-available',
+	math:   'rcp-math-verification',
+	mc:     'RCP-MailChimp',
+	mp:     'rcp-mailpoet',
+	pw:     'rcp-strong-passwords',
+	rest:   'rcp-rest-api',
+	rpc:    'rcp-restrict-past-content',
+	rt:     'rcp-restriction-timeouts',
+	site:   'rcp-site-creation',
+	wallet: 'rcp-edd-wallet',
+	wcmd:   'rcp-woocommerce-member-discounts',
 };
 
 var SHRepoMap = {
