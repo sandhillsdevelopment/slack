@@ -50,8 +50,6 @@ slack.on('message', function(message) {
 			var issueNum = message.text.substr(message.text.indexOf('#')).split(' ')[0];
 			var abbr     = issueNum.match( /[a-z]+/ );
 
-			console.log('Detected');
-			console.log(issueNum);
 			console.log(abbr);
 			if ( null !== abbr ) {
 				repo = getRepoFromAbbr( abbr[0], channel.name );
@@ -75,8 +73,6 @@ slack.on('message', function(message) {
 							'Authorization': 'token ' + token
 						}
 					};
-
-				console.log( options );
 
 				//Github API requires User Agent
 				request(options, function (error, response, body) {
