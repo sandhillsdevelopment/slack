@@ -94,7 +94,7 @@ slack.on('message', function(message) {
 
 		} else if ( message.text.match( /^\<@U6BH7TC3C\>\slist$/ ) ) {
 
-			var mapObject, toPrint = '';
+			var mapObject, toPrint = "*Repo Abbreviation Map:*\n";
 
 			switch( channel.name ) {
 				case 'affwp-general':
