@@ -94,6 +94,7 @@ slack.on('message', function(message) {
 
 		} else if ( message.text.match( /^@github\slist$/ ) ) {
 
+			console.log( "```" + AffWPRepoMap + "```" );
 			switch( channel.name ) {
 				case 'affwp-general':
 				case 'affwp-docs':
