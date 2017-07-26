@@ -41,9 +41,9 @@ slack.on('message', function(message) {
 	var user = slack.getUserByID(message.user);
 	var repo = repoMaps.getByChannel( channel.name );
 
-	// if we find a #...
 	if (message.type === 'message' && message.hasOwnProperty('text') ) {
 
+		// if we find a #:
 		if ( message.text.indexOf('#') > -1 ) {
 
 			var issueNum = message.text.substr(message.text.indexOf('#')).split(' ')[0];
@@ -88,6 +88,7 @@ slack.on('message', function(message) {
 				});
 			}
 
+		// If we get '@github list':
 		} else if ( message.text.match( /^\<@U6BH7TC3C\>\slist$/ ) ) {
 
 			var mapObject;
