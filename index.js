@@ -117,7 +117,9 @@ slack.on('message', function(message) {
 
 			if ( null !== mapObject ) {
 				for ( var prop in mapObject ) {
-					toPrint += prop + " : " + mapObject[prop] + "\n";
+					if ( 'undefined' !== prop ) {
+						toPrint += prop + " : " + mapObject[prop] + "\n";
+					}
 				}
 
 				channel.send( "```" + toPrint + "```" );
