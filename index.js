@@ -94,24 +94,40 @@ slack.on('message', function(message) {
 
 		} else if ( message.text.match( /^\<@U6BH7TC3C\>\slist$/ ) ) {
 
+			var mapObject, toPrint;
+
 			switch( channel.name ) {
 				case 'affwp-general':
 				case 'affwp-docs':
 				case 'affwp-support':
-					channel.send( "```" + JSON.stringify( AffWPRepoMap ) + "```" );
+					mapObject = AffWPRepoMap;
 					break;
 
 				case 'edd-general':
 				case 'edd-docs':
 				case 'edd-support':
-					channel.send( "```" + JSON.stringify( EDDRepoMap ) + "```" );
+					mapObject = EDDRepoMap;
 					break;
 
 				case 'rcp-general':
 				case 'rcp-support':
-					channel.send( "```" + JSON.stringify( RCPRepoMap ) + "```" );
+					mapObject = RCPRepoMap;
 					break;
 			}
+
+			if ( null !== mapObject ) {
+				for ( var prop in mapObject ) {
+					toPrint += prop + " : " + mapObject[prop] + "\n";
+				}
+
+				channel.send( "```" + toPrint + "```" );
+
+			} else {
+
+				console.log( "Nothing to print." );
+
+			}
+
 
 		}
 
