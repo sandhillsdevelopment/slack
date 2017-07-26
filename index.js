@@ -94,7 +94,7 @@ slack.on('message', function(message) {
 
 		} else if ( message.text.match( /^\<@U6BH7TC3C\>\slist$/ ) ) {
 
-			var mapObject, toPrint = '';
+			var mapObject;
 
 			switch( channel.name ) {
 				case 'affwp-general':
@@ -115,21 +115,15 @@ slack.on('message', function(message) {
 					break;
 			}
 
-			channel.send( "```" + JSON.stringify( mapObject, null, 4 ) + "```" );
-			// if ( null !== mapObject ) {
-			// 	for ( var prop in mapObject ) {
-			// 		if ( 'undefined' !== prop ) {
-			// 			toPrint += prop + " : " + mapObject[prop] + "\n";
-			// 		}
-			// 	}
-			//
-			// 	channel.send( "*Repo Abbreviation Map:*\n" + "```" + toPrint + "```" );
-			//
-			// } else {
-			//
-			// 	console.log( "Nothing to print." );
-			//
-			// }
+			if ( null !== mapObject ) {
+
+				channel.send( "*Repo Abbreviation Map:*\n" + "```" + JSON.stringify( mapObject, null, 4 ) + "```" );
+
+			} else {
+
+				console.log( "Nothing to print." );
+
+			}
 
 
 		}
