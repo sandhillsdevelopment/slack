@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 var Client   = require('slack-client'),
-	request  = require('request'),
-	maps     = require('./repo-maps.js');
+    request  = require('request'),
+    maps     = require('./repo-maps.js');
 
 module.exports = Client;
 
