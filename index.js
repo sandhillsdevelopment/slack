@@ -43,10 +43,12 @@ slack.on('message', function(message) {
 
 	if (message.type === 'message' && message.hasOwnProperty('text') ) {
 
-		// if we find a #:
-		if ( message.text.indexOf('#') > -1 ) {
+		var issueFound = message.text.match( '/#([a-z]+)?\\d+/' );
 
-			var issueNum = message.text.substr(message.text.indexOf('#')).split(' ')[0];
+		// if we find a #:
+		if ( null !== issueFound ) {
+
+			var issueNum = issueFound[0];
 			var abbr     = issueNum.match( /[a-z]+/ );
 
 			console.log(abbr);
