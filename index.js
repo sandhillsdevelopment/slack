@@ -43,7 +43,7 @@ slack.on('message', function(message) {
 
 	if (message.type === 'message' && message.hasOwnProperty('text') ) {
 
-		var issueFound = message.text.match( '/#([a-z]+)?\\d+/' );
+		var issueFound = message.text.match( /#([a-z]+)?\\d+/ );
 
 		// if we find a #:
 		if ( null !== issueFound ) {
