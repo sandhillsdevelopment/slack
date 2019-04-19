@@ -46,47 +46,58 @@ slack.on('message', function(message) {
 		// if we find a #:
 		if ( message.text.indexOf('#') > -1 ) {
 
-			var issueNum = message.text.substr(message.text.indexOf('#')).split(' ')[0];
-			var abbr     = issueNum.match( /[a-z]+/ );
+			var issueNums = message.text.match( /[a-z]+\d+/g );
 
-			console.log(abbr);
-			if ( null !== abbr ) {
+			if ( null === issueNums ) {
+				return;
+			}
+
+			issueNums.forEach( function( element ) {
+
+				var abbr = element.match( /[a-z]+/ );
+
+				console.log( abbr );
+			
+				if ( null === abbr ) {
+					return;
+				}
+
 				repo = repoMaps.getByAbbr( abbr[0], channel.name );
 
 				// Rewrite the issueNum minus the abbreviation.
 				issueNum = '#' + issueNum.match(/\d+$/);
-			}
 
-			console.log(repo);
-			console.log(issueNum);
+				console.log(repo);
+				console.log(issueNum);
 
-			if (/^#\d+$/.test(issueNum)) {
-				var issueDescription,
-					token = repoMaps.auth_token,
-					options = {
-						url: 'https://api.github.com/repos/' + repo + '/issues/' + issueNum.substr(1),
-						method: 'GET',
-						headers: {
-							'User-Agent':   'Super Agent/0.0.1',
-							'Content-Type': 'application/x-www-form-urlencoded',
-							'Authorization': 'token ' + token
+				if (/^#\d+$/.test(issueNum)) {
+					var issueDescription,
+						token = repoMaps.auth_token,
+						options = {
+							url: 'https://api.github.com/repos/' + repo + '/issues/' + issueNum.substr(1),
+							method: 'GET',
+							headers: {
+								'User-Agent':   'Super Agent/0.0.1',
+								'Content-Type': 'application/x-www-form-urlencoded',
+								'Authorization': 'token ' + token
+							}
+						};
+
+					//Github API requires User Agent
+					request(options, function (error, response, body) {
+						var json = JSON.parse(body);
+						if (!error && response.statusCode == 200) {
+							issueDescription = "*" + repo + "*\n";
+							issueDescription += "[#" + json.number + "] " + json.title + "\n " + json.html_url;
+							channel.send(issueDescription)
+						} else {
+							console.log( error );
 						}
-					};
 
-				//Github API requires User Agent
-				request(options, function (error, response, body) {
-					var json = JSON.parse(body);
-					if (!error && response.statusCode == 200) {
-						issueDescription = "*" + repo + "*\n";
-						issueDescription += "[#" + json.number + "] " + json.title + "\n " + json.html_url;
-						channel.send(issueDescription)
-					} else {
-						console.log( error );
-					}
-
-					// console.log( response.headers );
-				});
-			}
+						// console.log( response.headers );
+					});
+				}
+			} );
 
 		// If we get '@github list':
 		} else if ( message.text.match( /^\<@U6BH7TC3C\>\slist$/ ) ) {
