@@ -106,7 +106,7 @@ slack.on('message', function(message) {
 
 			if ( null !== mapObject ) {
 
-				channel.send( "*Repo Abbreviation Map:*\n" + "```" + JSON.stringify( mapObject, null, 4 ) + "```" );
+				channel.send( "*Repo Abbreviation Map:*\n" + "```\n" + JSON.stringify( mapObject, null, 4 ) + "\n```" );
 
 			} else {
 
