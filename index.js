@@ -56,7 +56,7 @@ slack.on('message', function(message) {
 
 				var abbr = element.match( /[a-z]+/ );
 
-				console.log( abbr );
+				// console.log( abbr );
 			
 				if ( null === abbr ) {
 					return;
@@ -65,12 +65,15 @@ slack.on('message', function(message) {
 				repo = repoMaps.getByAbbr( abbr[0], channel.name );
 
 				// Rewrite the issueNum minus the abbreviation.
-				issueNum = '#' + issueNum.match(/\d+$/);
+				issueNum = '#' + element.match(/\d+$/);
 
-				console.log(repo);
-				console.log(issueNum);
+				// console.log(repo);
+				// console.log(issueNum);
+				// console.log( element.match( /\d+$/ ) );
+				// console.log( /^#\d+$/.test( issueNum ) );
 
-				if (/^#\d+$/.test(issueNum)) {
+				if (/^#\d+$/.test(issueNum) ) {
+					var number = issueNum.match( /\d+$/ );
 					var issueDescription,
 						token = repoMaps.auth_token,
 						options = {
@@ -82,6 +85,8 @@ slack.on('message', function(message) {
 								'Authorization': 'token ' + token
 							}
 						};
+
+					// console.log( options );
 
 					//Github API requires User Agent
 					request(options, function (error, response, body) {
